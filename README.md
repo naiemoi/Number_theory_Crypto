@@ -1,7 +1,8 @@
 # Number Theory and Cryptography
 
-These notes introduce key ideas from elementary number theory, modular
-arithmetic, and prime numbers.
+This guide introduces useful ideas from elementary number theory, modular
+arithmetic, and prime numbers. Each topic includes a short explanation and
+the main formula to remember.
 
 ## Part 1: Number Theory and Cryptography
 
@@ -15,6 +16,8 @@ $$
 $$
 
 Repeat until the remainder is zero. The last nonzero remainder is the GCD.
+This process takes only logarithmically many steps, so it remains efficient
+even when the inputs are large.
 
 ### 2. Extended Euclidean Algorithm
 
@@ -111,7 +114,12 @@ $$
 ### 1. Infinitude of Primes
 
 A prime number is an integer greater than $1$ whose only positive divisors are
-$1$ and itself. Euclid's proof shows that there are infinitely many primes.
+$1$ and itself. Euclid's classic argument assumes there is a finite list of
+primes, then considers one more than their product. A prime divisor of that
+new number cannot be on the original list, giving a contradiction. Related
+proofs use numbers such as $n!+1$ or Fermat numbers; other arguments connect
+the result to the divergence of the sum of reciprocals of the primes. Filip
+Saidak also gave an elementary proof using products of consecutive integers.
 
 ### 2. Prime Distribution
 
@@ -130,9 +138,9 @@ Prime distribution studies how primes occur among the natural numbers.
 
 - **Goldbach's conjecture:** Every even integer greater than $2$ is the sum
   of two primes.
-- **Weak Goldbach theorem:** Every odd integer greater than $5$ is the sum
-  of three odd primes. This statement was historically known as the weak
-  Goldbach conjecture and is now proven.
+- **Waring's prime conjecture (the weak Goldbach theorem):** Every odd
+  integer greater than $5$ is the sum of three primes. This statement was
+  once a conjecture, but it has been proven.
 - **Twin prime conjecture:** There are infinitely many pairs of primes that
   differ by $2$.
 - **Legendre's conjecture:** There is at least one prime between every pair
@@ -144,11 +152,12 @@ Primality tests determine whether a number is prime or composite. Common
 methods include:
 
 - **Trial division:** Checks possible divisors up to the square root of the
-  number.
+  number. Wheel factorization can skip candidates that are divisible by
+  small primes.
 - **Sieve of Eratosthenes:** Finds all primes within a specified range.
 - **Fermat's test:** Uses Fermat's Little Theorem to identify probable primes.
-  Some composite numbers pass the test; Carmichael numbers, such as $561$,
-  pass for every base coprime to the number.
+  A composite number can pass for some bases. Carmichael numbers, such as
+  $561$, $1105$, and $1729$, pass for every base coprime to the number.
 - **Lucas primality test:** Uses the prime factors of $n-1$ and suitable
   modular congruences to prove that $n$ is prime.
 - **Lucas-Lehmer test:** Tests whether a Mersenne number
