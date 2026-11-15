@@ -1,183 +1,26 @@
-# Number Theory and Cryptography
-
-This guide introduces useful ideas from elementary number theory, modular
-arithmetic, and prime numbers. Each topic includes a short explanation and
-the main formula to remember.
-
-## Part 1: Number Theory and Cryptography
-
-### 1. Euclidean Algorithm (GCD)
-
-The Euclidean algorithm finds the greatest common divisor (GCD) of two
-integers by repeatedly replacing the pair with the divisor and remainder:
-
-$$
-\gcd(a,b)=\gcd(b,\;a\bmod b)
-$$
-
-Repeat until the remainder is zero. The last nonzero remainder is the GCD.
-This process takes only logarithmically many steps, so it remains efficient
-even when the inputs are large.
-
-### 2. Extended Euclidean Algorithm
-
-The extended Euclidean algorithm finds the GCD and integers $x$ and $y$ such
-that:
-
-$$
-ax+by=\gcd(a,b)
-$$
-
-These coefficients are useful for finding modular inverses and solving
-Diophantine equations.
-
-### 3. Least Common Multiple (LCM)
-
-The least common multiple is the smallest positive integer divisible by both
-integers. For nonzero $a$ and $b$:
-
-$$
-\operatorname{lcm}(a,b)=\frac{|ab|}{\gcd(a,b)}
-$$
-
-### 4. Linear Diophantine Equations
-
-A linear Diophantine equation has the form $ax+by=c$, where integer solutions
-are required. A solution exists exactly when $\gcd(a,b)$ divides $c$.
-
-If $(x_0,y_0)$ is one solution, let $d=\gcd(a,b)$. All integer solutions are:
-
-$$
-x=x_0+t\frac{b}{d},\qquad
-y=y_0-t\frac{a}{d},\qquad t\in\mathbb Z
-$$
-
-### 5. Modular Inverse and Division
-
-The modular inverse of $a$ modulo $n$ is an integer $s$ satisfying:
-
-$$
-as\equiv1\pmod n
-$$
-
-It exists exactly when $\gcd(a,n)=1$. When it exists, division by $a$ modulo
-$n$ means multiplying by its inverse:
-
-$$
-\frac{b}{a}\equiv bs\pmod n
-$$
-
-### 6. Chinese Remainder Theorem (CRT)
-
-The Chinese Remainder Theorem combines congruences with pairwise-coprime
-moduli. It guarantees a unique solution modulo the product of those moduli.
-
-For two coprime moduli $a$ and $b$, choose $x$ and $y$ such that $ax+by=1$.
-The solution to $n\equiv r_a\pmod a$ and $n\equiv r_b\pmod b$ is:
-
-$$
-n\equiv r_a\,by+r_b\,ax\pmod{ab}
-$$
-
-### 7. Fast Modular Exponentiation
-
-Fast modular exponentiation computes $b^e\bmod m$ using the binary
-representation of $e$ and repeated squaring. It needs only
-$O(\log e)$ modular multiplications, making it practical for very large
-exponents.
-
-### 8. Fermat's Little Theorem
-
-If $p$ is prime and $p$ does not divide $a$, then:
-
-$$
-a^{p-1}\equiv1\pmod p
-$$
-
-The theorem is useful in modular arithmetic and in probabilistic primality
-tests.
-
-### 9. Euler's Totient Function and Theorem
-
-Euler's totient function $\varphi(n)$ counts the positive integers up to $n$
-that are relatively prime to $n$. For example, $\varphi(p)=p-1$ for a prime
-$p$, and $\varphi(pq)=(p-1)(q-1)$ for distinct primes $p$ and $q$.
-
-Euler's theorem states that, when $\gcd(a,n)=1$:
-
-$$
-a^{\varphi(n)}\equiv1\pmod n
-$$
-
-## Part 2: Prime Numbers
-
-### 1. Infinitude of Primes
-
-A prime number is an integer greater than $1$ whose only positive divisors are
-$1$ and itself. Euclid's classic argument assumes there is a finite list of
-primes, then considers one more than their product. A prime divisor of that
-new number cannot be on the original list, giving a contradiction. Related
-proofs use numbers such as $n!+1$ or Fermat numbers; other arguments connect
-the result to the divergence of the sum of reciprocals of the primes. Filip
-Saidak also gave an elementary proof using products of consecutive integers.
-
-### 2. Prime Distribution
-
-Prime distribution studies how primes occur among the natural numbers.
-
-- **Dirichlet's theorem:** If $\gcd(a,b)=1$, the arithmetic progression
-  $a k+b$ contains infinitely many primes.
-- **Prime Number Theorem:** The number $\pi(x)$ of primes up to $x$ is
-  approximately:
-
-  $$
-  \pi(x)\sim\frac{x}{\ln x}
-  $$
-
-### 3. Famous Prime Number Conjectures
-
-- **Goldbach's conjecture:** Every even integer greater than $2$ is the sum
-  of two primes.
-- **Waring's prime conjecture (the weak Goldbach theorem):** Every odd
-  integer greater than $5$ is the sum of three primes. This statement was
-  once a conjecture, but it has been proven.
-- **Twin prime conjecture:** There are infinitely many pairs of primes that
-  differ by $2$.
-- **Legendre's conjecture:** There is at least one prime between every pair
-  of consecutive perfect squares.
-
-### 4. Primality Testing
-
-Primality tests determine whether a number is prime or composite. Common
-methods include:
-
-- **Trial division:** Checks possible divisors up to the square root of the
-  number. Wheel factorization can skip candidates that are divisible by
-  small primes.
-- **Sieve of Eratosthenes:** Finds all primes within a specified range.
-- **Fermat's test:** Uses Fermat's Little Theorem to identify probable primes.
-  A composite number can pass for some bases. Carmichael numbers, such as
-  $561$, $1105$, and $1729$, pass for every base coprime to the number.
-- **Lucas primality test:** Uses the prime factors of $n-1$ and suitable
-  modular congruences to prove that $n$ is prime.
-- **Lucas-Lehmer test:** Tests whether a Mersenne number
-  $M_p=2^p-1$ is prime. For an odd prime $p$, start with $s_1=4$ and
-  repeatedly calculate $s_{k+1}=s_k^2-2$ modulo $M_p$; $M_p$ is prime exactly
-  when $s_{p-1}\equiv0\pmod{M_p}$.
-
-### 5. Special Numbers
-
-- **Mersenne primes:** Primes of the form $2^p-1$. If $2^p-1$ is prime, then
-  $p$ must also be prime.
-- **Perfect numbers:** Positive integers equal to the sum of their proper
-  divisors. Examples include $6$, $28$, $496$, and $8128$. Every even perfect
-  number has the form $2^{p-1}(2^p-1)$ for a Mersenne prime $2^p-1$.
-- **Antiprimes (highly composite numbers):** Positive integers with more
-  divisors than any smaller positive integer.
-
-If the prime factorization of $n$ is
-$n=p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k}$, its number of positive divisors is:
-
-$$
-d(n)=(a_1+1)(a_2+1)\cdots(a_k+1)
-$$
+MD. Naiem 
+IT-23025
+Part 1: Number Theory & Cryptography (Day 1.pdf)
+Euclid's Algorithm (GCD): gcd(a, b) = gcd(b, a mod b) for a >= b > 0[cite: 56]. Runs in at most log₂(a) + log₂(b) iterations.
+Extended Euclid's Algorithm: Finds integers x, y such that a*x + b*y = gcd(a, b)[cite: 50].
+LCM: lcm(a, b) = (a * b) / gcd(a, b).
+Diophantine Equations: a*x + b*y = c has integer solutions iff gcd(a, b) | c[cite: 87]. From one solution (x₀, y₀), all solutions are x = x₀ + t*q and y = y₀ - t*p (where a = d*p, b = d*q, d = gcd(a, b))[cite: 102, 111].
+Modular Inverse & Division: Inverse exists iff gcd(a, n) = 1[cite: 133]. Using n*t + a*s = 1, modular division is b / a ≡ b * s (mod n).
+Chinese Remainder Theorem (CRT): If gcd(a, b) = 1 and a*x + b*y = 1, the unique solution n (mod a*b) to n ≡ r_a (mod a) and n ≡ r_b (mod b) is n = r_a * b*y + r_b * a*x[cite: 194, 209].
+Fast Modular Exponentiation: Computes b^e (mod m) using binary representation of e and repeated squaring in at most 2 * log₂(e) multiplications.
+Fermat's Little Theorem: If prime p does not divide a, a^(p - 1) ≡ 1 (mod p)[cite: 256].
+Euler's Totient & Theorem: φ(n) counts integers in [0, n - 1] coprime to n (φ(p) = p - 1, φ(p*q) = (p - 1)(q - 1))[cite: 287, 292, 294]. If gcd(a, n) = 1, then a^φ(n) ≡ 1 (mod n).
+Part 2: Prime Numbers (Day 2.pdf)
+Infinitude of Primes: Proved via Euclid's proof (∏pᵢ + 1)[cite: 311], n! + 1, harmonic series divergence, Fermat numbers (2^(2^n) + 1), and Filip Saidak's proof.
+Distribution:
+Dirichlet's Theorem: Infinitely many primes of form a*k + b iff gcd(a, b) = 1[cite: 316].
+Prime Number Theorem: Asymptotically, π(x) = x / log x.
+Conjectures: Goldbach (even > 3 = p₁ + p₂)[cite: 318], Waring (odd > 3 is prime or sum of 3 primes), Twin Primes, and a prime between n² and (n + 1)².
+Primality Testing:
+Sieving & Trial Division: Check primes <= √n (optimized with Wheeling)[cite: 322].
+Fermat's Test & Carmichael Numbers: Composite numbers where a^n ≡ a (mod n) for all a (e.g., 561, 1105, 1729).
+Lucas' & n - 1 Tests: n is prime if for prime factors q of n - 1, a^(n - 1) ≡ 1 (mod n) and a^((n - 1)/q) ≢ 1 (mod n).
+Lucas-Lehmer Test: Tests 2^p - 1 using l(1) = 4, l(n) = l(n - 1)² - 2[cite: 330].
+Special Numbers:
+Mersenne Primes (2^n - 1) & Perfect Numbers (6, 28, 496, 8128).
+Antiprimes: Numbers with more divisors than any smaller positive integer; total divisors d(n) = (a₁ + 1)(a₂ + 1)...(aₖ + 1)
